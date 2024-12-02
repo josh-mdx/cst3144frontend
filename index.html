@@ -6,6 +6,26 @@
     <title>Document</title>
 </head>
 <body>
-    
+    <div id="app">
+        <h1>{{name}}</h1>
+
+        <button v-bind:disabled = "total <= 0" v-on:click="market = !market">View Cart</button>
+        <button v-bind:disabled = "total <= 0">{{total}}</button>
+        <label for="">Sort by:</label>
+        <select v-model="sortBy">
+            <option value="name">Subject</option>
+            <option value="locat">Location</option>
+            <option value="price">Price</option>
+            <option value="spaces">Spaces</option>
+            
+        </select>
+        <label for="">Order:</label>
+        <button v-if="order" v-on:click="orderedLessons">Ascending</button>
+        <button v-else v-on:click="orderedLessons">Descending</button>
+        <div>
+            <input type="search" v-model="searchQuery" v-on:input="searchLessons" placeholder="Search Lessons" id="">
+            <!-- <input type="submit" value="Submit"> -->
+        </div>
+    </div>
 </body>
 </html>
