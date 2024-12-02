@@ -50,6 +50,32 @@ new Vue({
                 this.searchstats = false;
             }
         },
+        async createOrder(){
+            try{
+                console.log(this.newOrder);
+                console.log(JSON.stringify(this.newOrder));
+                const res = await fetch('http://localhost:3000/order',
+                {
+                    method: 'POST',
+                    headers:{
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(this.newOrder)
+
+                    
+                });
+                
+                if (!res.ok) { 
+                    throw new Error('Couldnt complete request');
+                }
+                alert('Order has been submitted');
+
+            }
+            catch(error){
+                console.log(error);
+                alert('Error creating order');
+            }
+        },
         addToCart(lesson){
             let les;
             let cartLesson;
@@ -179,6 +205,14 @@ new Vue({
 
 
         },
+        addCartLessonIDsToOrder(order, cart){
+            // order.lessonIDs = cart.map(cartLesson => cartLesson.id);
+            order.lessonIDs = cart.map(cartLesson => ({
+                id: cartLesson.id,
+                spaces: cartLesson.amount
+            }));
+            console.log(order)
+        }
 
     }
 })
