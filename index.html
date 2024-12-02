@@ -26,6 +26,59 @@
             <input type="search" v-model="searchQuery" v-on:input="searchLessons" placeholder="Search Lessons" id="">
             <!-- <input type="submit" value="Submit"> -->
         </div>
+        <section id="market" v-if="market">
+            <div v-if="searchstats">
+                <div v-if="searchedLessons.length > 0">
+                    <div v-for="lesson in searchedLessons" >
+                        <img v-bind:src="lesson.imgurl" alt="">
+                        <h2>{{lesson.name}}</h2>
+                        <p>Location: {{lesson.locat}}</p>
+                        <p>Price: ${{lesson.price}}</p>
+                        <p>Spaces: {{lesson.spaces}}</p>
+                        <button v-bind:id="lesson.id" v-on:click="addToCart($event.target)" v-bind:disabled="lesson.taken >= lesson.initspace" >Add to Cart</button>
+                    </div>
+                </div>
+
+                <div v-else>
+                    <h2>No Results Found</h2>
+                </div>
+            </div>
+            <div v-else>
+                <div v-for="lesson in lessons">
+                    <img v-bind:src="lesson.imgurl" alt="">
+                    <h2>{{lesson.name}}</h2>
+                    <p>Location: {{lesson.locat}}</p>
+                    <p>Price: ${{lesson.price}}</p>
+                    <p>Spaces: {{lesson.spaces}}</p>
+                    <button v-bind:id="lesson.id" v-on:click="addToCart($event.target)" v-bind:disabled="lesson.taken >= lesson.initspace" >Add to Cart</button>
+                </div>
+            </div>
+        </section>
+
+        <section id="cart" v-else>
+            <h2>Shopping Cart</h2>
+            <div>
+                <div v-for="cartLesson in cart">
+                    <img v-bind:src="cartLesson.imgurl" alt="">
+                    <h2>{{cartLesson.name}}</h2>
+                    <p>Price: ${{cartLesson.price}}</p>
+                    <p>Amount: {{cartLesson.amount}}</p>
+                    <button v-bind:id="cartLesson.id" v-on:click="removeFromCart($event.target)">Remove From Cart</button>
+                </div>
+            </div>
+            <div>
+                <button v-bind:disabled = "checkout.stats" v-on:click="checkOut" >Checkout</button>
+                <div>
+                    <label>Name</label>
+                    <input type="text" v-model="checkout.name" v-on:input="validateFields"/>
+                    <label>Phone</label>
+                    <input type="text" v-model="checkout.phone" v-on:input="validateFields"/>
+                </div>
+                
+            </div>
+        </section>
     </div>
+    <a href="https://www.flaticon.com/free-icons/literature" title="literature icons">Literature icons created by Freepik - Flaticon</a>
+    <script src="./js/index.js"></script>
 </body>
 </html>
