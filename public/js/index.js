@@ -158,6 +158,27 @@ new Vue({
             this.sortLessons(this.sortBy, this.order);
             this.order = !this.order;                     
         },
+        validateFields(){
+            console.log('hi');
+            const nameRegex = /^[A-Za-z]{3,}$/; 
+            const phoneRegex = /^[0-9]{5,}$/;
+            // let check = 
+            
+            if(nameRegex.test(this.checkout.name) && phoneRegex.test(this.checkout.phone)){
+                this.checkout.stats = false;
+            }
+            
+        },
+        checkOut(){
+            this.newOrder = {name: this.checkout.name, phone: this.checkout.phone, lessonIDs: []};
+            this.addCartLessonIDsToOrder(this.newOrder, this.cart);
+            this.createOrder();
+            this.updateLessons(this.lessons);
+            // console.log('Input JSON:', JSON.parse(this.lessons));
+            // const updatedLessons = JSON.parse(this.updatedLessonsJson);
+
+
+        },
 
     }
 })
