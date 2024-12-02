@@ -76,6 +76,28 @@ new Vue({
                 alert('Error creating order');
             }
         },
+        async updateLessons(updateLessonJson){
+            try{
+                const updatejson = updateLessonJson;
+
+                const res = await fetch('http://localhost:3000/lessons',
+                {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(updatejson)
+                })
+                if(!res.ok){
+                    throw new Error('Couldnt complete request');
+                }
+                alert('Lesson updated successfully!');
+            }
+            catch(error){
+                console.log(error);
+                alert('Error updating lessons');
+            }
+        },
         addToCart(lesson){
             let les;
             let cartLesson;
