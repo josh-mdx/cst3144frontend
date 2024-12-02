@@ -22,6 +22,34 @@ new Vue({
         this.fetchLessons();
     },
     methods:{
+        async fetchLessons(){
+            try {
+                const res = await fetch('http://localhost:3000/lessons');
+                const lessons = await res.json();
+                this.lessons = lessons;
+            } catch (error) {
+                console.log(error)
+            }
+        },
+        async searchLessons(){
+            const query = this.searchQuery.trim().toLowerCase();
+            if(query.length >= 1){
+                // add logic to hide lessons and show searched lessons
+                this.searchstats = true;
+                try{
+                    const res = await fetch(`http://localhost:3000/search?query=${query}`);
+                    this.searchedLessons = await res.json();
+                    console.log(this.searchedLessons);
+                }
+                catch(error){
+                    console.log(error);
+                }
+
+            }
+            else{
+                this.searchstats = false;
+            }
+        },
         addToCart(lesson){
             let les;
             let cartLesson;
