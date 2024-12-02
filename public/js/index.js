@@ -24,7 +24,7 @@ new Vue({
     methods:{
         async fetchLessons(){
             try {
-                const res = await fetch('http://localhost:3000/lessons');
+                const res = await fetch('https://cst3144backend.onrender.com/lessons');
                 const lessons = await res.json();
                 this.lessons = lessons;
             } catch (error) {
@@ -37,7 +37,7 @@ new Vue({
                 // add logic to hide lessons and show searched lessons
                 this.searchstats = true;
                 try{
-                    const res = await fetch(`http://localhost:3000/search?query=${query}`);
+                    const res = await fetch(`https://cst3144backend.onrender.com/search?query=${query}`);
                     this.searchedLessons = await res.json();
                     console.log(this.searchedLessons);
                 }
@@ -54,7 +54,7 @@ new Vue({
             try{
                 console.log(this.newOrder);
                 console.log(JSON.stringify(this.newOrder));
-                const res = await fetch('http://localhost:3000/order',
+                const res = await fetch('https://cst3144backend.onrender.com/order',
                 {
                     method: 'POST',
                     headers:{
@@ -80,7 +80,7 @@ new Vue({
             try{
                 const updatejson = updateLessonJson;
 
-                const res = await fetch('http://localhost:3000/lessons',
+                const res = await fetch('https://cst3144backend.onrender.com/lessons',
                 {
                     method: 'PUT',
                     headers: {
